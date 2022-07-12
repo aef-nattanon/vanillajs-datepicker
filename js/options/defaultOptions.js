@@ -5,6 +5,7 @@ const defaultOptions = {
   beforeShowDecade: null,
   beforeShowMonth: null,
   beforeShowYear: null,
+  buddhistYear: false,
   calendarWeeks: false,
   clearBtn: false,
   dateDelimiter: ',',

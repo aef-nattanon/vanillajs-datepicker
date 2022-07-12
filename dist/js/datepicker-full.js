@@ -499,6 +499,7 @@
     beforeShowDecade: null,
     beforeShowMonth: null,
     beforeShowYear: null,
+    buddhistYear: false,
     calendarWeeks: false,
     clearBtn: false,
     dateDelimiter: ',',
@@ -1003,6 +1004,10 @@
           el.className = this.daysOfWeekDisabled.includes(dow) ? 'dow disabled' : 'dow';
         });
       }
+
+      if (options.buddhistYear !== undefined) {
+        this.buddhistYear = options.buddhistYear;
+      }
     }
 
     // Apply update on the focused date to view's settings
@@ -1036,7 +1041,18 @@
       // by beforeShow hook at previous render
       this.disabled = [...this.datesDisabled];
 
-      const switchLabel = formatDate(this.focused, this.switchLabelFormat, this.locale);
+      let switchLabel = formatDate(this.focused, this.switchLabelFormat, this.locale);
+      // format date to buddhist format
+      if (this.buddhistYear) {
+        const date = new Date(this.focused);
+        const day = date.getDate();
+        const month = date.getMonth();
+        const year = date.getFullYear() + 543;
+        const buddhistDate = new Date(year, month, day);
+
+        switchLabel = formatDate(buddhistDate.getTime(), this.switchLabelFormat, this.locale);
+      }
+
       this.picker.setViewSwitchLabel(switchLabel);
       this.picker.setPrevBtnDisabled(this.first <= this.minDate);
       this.picker.setNextBtnDisabled(this.last >= this.maxDate);
@@ -1217,6 +1233,9 @@
           ? options.beforeShowMonth
           : undefined;
       }
+      if (options.buddhistYear !== undefined) {
+        this.buddhistYear = options.buddhistYear;
+      }
     }
 
     // Update view's settings to reflect the viewDate set on the picker
@@ -1261,7 +1280,11 @@
         return arr;
       }, []);
 
-      this.picker.setViewSwitchLabel(this.year);
+      if (this.buddhistYear) {
+        this.picker.setViewSwitchLabel(this.year + 543);
+      } else {
+        this.picker.setViewSwitchLabel(this.year);
+      }
       this.picker.setPrevBtnDisabled(this.year <= this.minYear);
       this.picker.setNextBtnDisabled(this.year >= this.maxYear);
 
@@ -1403,6 +1426,9 @@
         const beforeShow = options[this.beforeShowOption];
         this.beforeShow = typeof beforeShow === 'function' ? beforeShow : undefined;
       }
+      if (options.buddhistYear !== undefined) {
+        this.buddhistYear = options.buddhistYear;
+      }
     }
 
     // Update view's settings to reflect the viewDate set on the picker
@@ -1439,7 +1465,12 @@
       // this.disabled = [...this.datesDisabled];
       this.disabled = this.datesDisabled.map(disabled => new Date(disabled).getFullYear());
 
-      this.picker.setViewSwitchLabel(`${this.first}-${this.last}`);
+      // this.picker.setViewSwitchLabel(`${this.first}-${this.last}`);
+      if (this.buddhistYear) {
+        this.picker.setViewSwitchLabel(`${this.first + 543}-${this.last + 543}`);
+      } else {
+        this.picker.setViewSwitchLabel(`${this.first}-${this.last}`);
+      }
       this.picker.setPrevBtnDisabled(this.first <= this.minYear);
       this.picker.setNextBtnDisabled(this.last >= this.maxYear);
 

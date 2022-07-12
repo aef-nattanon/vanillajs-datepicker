@@ -75,6 +75,7 @@ const defaultOptions = {
   beforeShowDecade: null,
   beforeShowMonth: null,
   beforeShowYear: null,
+  buddhistYear: false,
   calendarWeeks: false,
   clearBtn: false,
   dateDelimiter: ',',
@@ -234,6 +235,7 @@ const refreshOptionForm = function refreshOptionForm() {
   const configDefaults = {
     minDate: new Date(today).setFullYear(0, 0, 1),
     maxDate: undefined,
+    buddhistYear: true,
   };
   const formElemByName = name => optsForm.querySelector(`[name="${name}"]`);
   const formatDate = val => Datepicker.formatDate(val, config.format, config.lang);

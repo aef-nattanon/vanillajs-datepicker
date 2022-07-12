@@ -72,6 +72,9 @@ export default class MonthsView extends View {
         ? options.beforeShowMonth
         : undefined;
     }
+    if (options.buddhistYear !== undefined) {
+      this.buddhistYear = options.buddhistYear;
+    }
   }
 
   // Update view's settings to reflect the viewDate set on the picker
@@ -116,7 +119,11 @@ export default class MonthsView extends View {
       return arr;
     }, []);
 
-    this.picker.setViewSwitchLabel(this.year);
+    if (this.buddhistYear) {
+      this.picker.setViewSwitchLabel(this.year + 543);
+    } else {
+      this.picker.setViewSwitchLabel(this.year);
+    }
     this.picker.setPrevBtnDisabled(this.year <= this.minYear);
     this.picker.setNextBtnDisabled(this.year >= this.maxYear);
 
