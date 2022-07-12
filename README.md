@@ -17,6 +17,7 @@ The package also includes pre-built js/css files for those who like to use it di
 - Made for modern browsers — no support for IE and Edge Legacy (aka non-Chromium Edge)  
   _** If you need to support Edge Legacy, [Web Components polyfill](https://www.npmjs.com/package/@webcomponents/webcomponentsjs) will allow this library to run on it._
 - Lightweight (well, relatively…) — 34kB (minified, uncompressed)
+- Support buddhist year format, eg. if gregorian year is **2022**, it is **2565** in buddhist year (+543)
 
 ### Demo
 
