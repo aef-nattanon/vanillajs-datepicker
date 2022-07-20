@@ -1483,8 +1483,12 @@ var Datepicker = (function () {
         if (this.isMinView) {
           el.dataset.date = date;
         }
-        el.textContent = el.dataset.year = current;
-
+        if (this.buddhistYear) {
+          el.textContent = el.dataset.year = current;
+          el.textContent = parseInt(el.textContent) + 543;
+        } else {
+          el.textContent = el.dataset.year = current;
+        }
         if (index === 0) {
           classList.add('prev');
         } else if (index === 11) {
